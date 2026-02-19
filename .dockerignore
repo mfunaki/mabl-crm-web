@@ -1,0 +1,40 @@
+# 依存パッケージ（ビルド時に再インストール）
+node_modules
+npm-debug.log*
+
+# Next.js ビルド成果物
+.next
+out
+
+# Prisma データベースファイル（コンテナ内で生成）
+prisma/*.db
+prisma/*.db-journal
+prisma/*.db-wal
+prisma/*.db-shm
+
+# 環境変数ファイル（機密情報）
+.env
+.env.*
+!.env.example
+
+# バージョン管理
+.git
+.gitignore
+
+# テスト・開発ツール
+coverage
+*.test.ts
+*.test.tsx
+vitest.config.ts
+
+# CI/CD ドキュメント
+README.md
+CLAUDE.md
+PROMPT.md
+
+# macOS
+.DS_Store
+
+# Docker 設定（Dockerfile と entrypoint はコンテキストに含める）
+.dockerignore
+cloudbuild.yaml

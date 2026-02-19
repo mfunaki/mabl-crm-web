@@ -11,7 +11,7 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "docker:build": "docker build -t mabl-crm-web .",
-    "docker:run": "docker run -p 3000:3000 mabl-crm-web"
+    "docker:run": "docker run -p 3000:3000 -e DATABASE_URL=file:/app/prisma/prod.db -e JWT_SECRET=dev-secret-change-in-production mabl-crm-web"
   },
   "dependencies": {
     "next": "14.2.29",
