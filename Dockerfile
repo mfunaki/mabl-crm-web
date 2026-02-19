@@ -51,8 +51,14 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modul
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma  ./node_modules/prisma
 
-# エントリポイントスクリプトをコピー
-COPY --chown=nextjs:nodejs docker-entrypoint.sh ./
+# シードスクリプト用に bcryptjs をコピー
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/bcryptjs ./node_modules/bcryptjs
+
+# DB ボリュームマウント用ディレクトリを作成
+RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
+
+# エントリポイント・シードスクリプトをコピー
+COPY --chown=nextjs:nodejs docker-entrypoint.sh docker-seed.js ./
 RUN chmod +x docker-entrypoint.sh
 
 USER nextjs

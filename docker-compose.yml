@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    image: mabl-crm-web
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: file:/app/data/prod.db
+      JWT_SECRET: dev-secret-change-in-production
+      NODE_ENV: production
+    volumes:
+      - crm-data:/app/data
+
+volumes:
+  crm-data:

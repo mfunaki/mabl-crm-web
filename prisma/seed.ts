@@ -7,12 +7,12 @@ async function main() {
   console.log('シードデータを投入中...')
 
   // テストユーザーを作成
-  const adminPassword = await bcrypt.hash('password123', 10)
-  const userPassword = await bcrypt.hash('password123', 10)
+  const adminPassword = await bcrypt.hash('Mabl@Admin#2024', 10)
+  const userPassword = await bcrypt.hash('Mabl@User#2024', 10)
 
   const admin = await prisma.user.upsert({
     where: { email: 'admin@demo.com' },
-    update: {},
+    update: { password: adminPassword },
     create: {
       email: 'admin@demo.com',
       password: adminPassword,
@@ -23,7 +23,7 @@ async function main() {
 
   const user = await prisma.user.upsert({
     where: { email: 'user@demo.com' },
-    update: {},
+    update: { password: userPassword },
     create: {
       email: 'user@demo.com',
       password: userPassword,

@@ -7,5 +7,8 @@ echo "=== Starting CRM Web Application ==="
 echo "--- Running database migrations..."
 node node_modules/prisma/build/index.js migrate deploy
 
+echo "--- Seeding initial data..."
+node docker-seed.js
+
 echo "--- Migrations complete. Starting server..."
 exec node server.js
