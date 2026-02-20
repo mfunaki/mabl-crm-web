@@ -26,7 +26,26 @@ gcloud artifacts repositories create mabl-crm \
   --description="mabl-crm Docker images"
 ```
 
-### 1-2. Secret Manager にシークレットを登録
+### 1-2. Cloud Run ランタイムサービスアカウントへの権限付与
+
+Cloud Run はデフォルトで Compute Engine のデフォルトサービスアカウントを使用してシークレットにアクセスします。
+このアカウントに Secret Manager の読み取り権限を付与します。
+
+```bash
+PROJECT_ID=$(gcloud config get-value project)
+PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format='value(projectNumber)')
+RUNTIME_SA="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
+
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --member="serviceAccount:${RUNTIME_SA}" \
+  --role="roles/secretmanager.secretAccessor" \
+  --condition=None
+```
+
+> **注意:** この権限がないと、Cloud Run のデプロイ時に以下のエラーが発生します。
+> `Permission denied on secret: ... for Revision service account ...`
+
+### 1-3. Secret Manager にシークレットを登録
 
 ```bash
 # JWT 署名用シークレット（初回作成）
@@ -251,6 +270,7 @@ gcloud logging read \
 
 | 症状 | 原因 | 対処 |
 |---|---|---|
+| `Permission denied on secret: ... for Revision service account` | Cloud Run ランタイム SA に Secret Manager 権限なし | 1-2 の権限付与を実行 |
 | `Permission denied` | WIF / SA のロール不足 | 2-2 のロール付与を再確認 |
 | `Secret not found` | Secret Manager のシークレット名が不一致 | `jwt-secret`, `database-url` の名前を確認 |
 | `Image not found` | Artifact Registry のリポジトリ名が不一致 | `mabl-crm` リポジトリが存在するか確認 |
