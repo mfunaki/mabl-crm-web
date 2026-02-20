@@ -41,6 +41,7 @@ export default function CustomersPage() {
   const [statusFilter, setStatusFilter] = useState('')
   const [loading, setLoading] = useState(true)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [confirmTarget, setConfirmTarget] = useState<{ id: string; name: string } | null>(null)
 
   const fetchCustomers = useCallback(async (p: number, q: string, s: string) => {
     setLoading(true)
@@ -73,8 +74,14 @@ export default function CustomersPage() {
     fetchCustomers(1, search, s)
   }
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`「${name}」を削除してもよいですか？`)) return
+  const handleDelete = (id: string, name: string) => {
+    setConfirmTarget({ id, name })
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!confirmTarget) return
+    const { id } = confirmTarget
+    setConfirmTarget(null)
     setDeletingId(id)
     try {
       await fetch(`/api/customers/${id}`, { method: 'DELETE' })
@@ -240,6 +247,35 @@ export default function CustomersPage() {
           )}
         </div>
       </div>
+      {/* 削除確認モーダル */}
+      {confirmTarget && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          data-testid="delete-confirm-dialog"
+        >
+          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm mx-4">
+            <p className="text-gray-800 mb-6" data-testid="delete-confirm-message">
+              「{confirmTarget.name}」を削除してもよいですか？
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                variant="secondary"
+                onClick={() => setConfirmTarget(null)}
+                data-testid="delete-confirm-cancel"
+              >
+                キャンセル
+              </Button>
+              <Button
+                variant="danger"
+                onClick={handleConfirmDelete}
+                data-testid="delete-confirm-ok"
+              >
+                削除
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </PageLayout>
   )
 }
