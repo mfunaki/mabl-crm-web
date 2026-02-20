@@ -203,11 +203,11 @@ echo "projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/github-p
 
 GitHub リポジトリの **Settings > Secrets and variables > Actions** に以下を登録します。
 
-| シークレット名 | 値 | 取得方法 |
-|---|---|---|
-| `GCP_PROJECT_ID` | GCP プロジェクト ID | `gcloud config get-value project` |
-| `WIF_PROVIDER` | WIF プロバイダーのリソース名 | 上記 2-6 の出力値 |
-| `WIF_SERVICE_ACCOUNT` | `github-actions-ci@{PROJECT_ID}.iam.gserviceaccount.com` | 既存 SA のメールアドレス |
+| シークレット名        | 値                                                       | 取得方法                          |
+| --------------------- | -------------------------------------------------------- | --------------------------------- |
+| `GCP_PROJECT_ID`      | GCP プロジェクト ID                                      | `gcloud config get-value project` |
+| `WIF_PROVIDER`        | WIF プロバイダーのリソース名                             | 上記 2-6 の出力値                 |
+| `WIF_SERVICE_ACCOUNT` | `github-actions-ci@{PROJECT_ID}.iam.gserviceaccount.com` | 既存 SA のメールアドレス          |
 
 ---
 
@@ -268,10 +268,10 @@ gcloud logging read \
 
 ## トラブルシューティング
 
-| 症状 | 原因 | 対処 |
-|---|---|---|
-| `Permission denied on secret: ... for Revision service account` | Cloud Run ランタイム SA に Secret Manager 権限なし | 1-2 の権限付与を実行 |
-| `Permission denied` | WIF / SA のロール不足 | 2-2 のロール付与を再確認 |
-| `Secret not found` | Secret Manager のシークレット名が不一致 | `jwt-secret`, `database-url` の名前を確認 |
-| `Image not found` | Artifact Registry のリポジトリ名が不一致 | `mabl-crm` リポジトリが存在するか確認 |
-| コンテナが起動しない | マイグレーションエラー | `gcloud logging read` でコンテナログを確認 |
+| 症状                                                            | 原因                                               | 対処                                       |
+| --------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------ |
+| `Permission denied on secret: ... for Revision service account` | Cloud Run ランタイム SA に Secret Manager 権限なし | 1-2 の権限付与を実行                       |
+| `Permission denied`                                             | WIF / SA のロール不足                              | 2-2 のロール付与を再確認                   |
+| `Secret not found`                                              | Secret Manager のシークレット名が不一致            | `jwt-secret`, `database-url` の名前を確認  |
+| `Image not found`                                               | Artifact Registry のリポジトリ名が不一致           | `mabl-crm` リポジトリが存在するか確認      |
+| コンテナが起動しない                                            | マイグレーションエラー                             | `gcloud logging read` でコンテナログを確認 |

@@ -24,14 +24,19 @@ interface FormErrors {
 
 const STATUS_OPTIONS = [
   { value: 'PROSPECT', label: '見込み' },
-  { value: 'ACTIVE',   label: '取引中' },
-  { value: 'INACTIVE', label: '休眠'   },
+  { value: 'ACTIVE', label: '取引中' },
+  { value: 'INACTIVE', label: '休眠' },
 ]
 
 export default function NewCustomerPage() {
   const router = useRouter()
   const [form, setForm] = useState<FormValues>({
-    name: '', email: '', phone: '', company: '', status: 'PROSPECT', notes: '',
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    status: 'PROSPECT',
+    notes: '',
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [apiError, setApiError] = useState('')
@@ -146,7 +151,9 @@ export default function NewCustomerPage() {
                   data-testid="status-select"
                 >
                   {STATUS_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -168,11 +175,7 @@ export default function NewCustomerPage() {
           </Card>
 
           <div className="flex gap-3 mt-4">
-            <Button
-              type="submit"
-              disabled={saving}
-              data-testid="save-button"
-            >
+            <Button type="submit" disabled={saving} data-testid="save-button">
               {saving ? '登録中...' : '登録'}
             </Button>
             <Button

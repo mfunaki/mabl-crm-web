@@ -66,6 +66,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     return response
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }

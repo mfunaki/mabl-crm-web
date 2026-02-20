@@ -37,6 +37,7 @@ Step 1 完了後、ファイル一覧と `npm run test` の実行結果を表示
 以下の順でRed→Green→Refactorを実施してください。
 
 ### 3-1. POST /api/auth/login
+
 1. `src/app/api/auth/login/route.test.ts` を作成（テスト先行）
    - 正常系: 正しいメールアドレスとパスワードでJWTが返る
    - 異常系: 存在しないメールアドレス → 401
@@ -47,6 +48,7 @@ Step 1 完了後、ファイル一覧と `npm run test` の実行結果を表示
 4. テストが通ることを確認（Green）
 
 ### 3-2. POST /api/auth/logout
+
 ### 3-3. GET /api/auth/me
 
 各エンドポイントで同様にTDDを実施。
@@ -56,6 +58,7 @@ Step 1 完了後、ファイル一覧と `npm run test` の実行結果を表示
 ## Step 4: ダッシュボードAPI（テストファースト）
 
 ### GET /api/dashboard
+
 - レスポンス: `{ totalCustomers, activeCustomers, prospects, newThisMonth }`
 - 認証必須（JWTなし → 401）
 
@@ -64,6 +67,7 @@ Step 1 完了後、ファイル一覧と `npm run test` の実行結果を表示
 ## Step 5: 顧客管理API（テストファースト）
 
 以下の順でTDDを実施:
+
 1. GET /api/customers（一覧・検索・フィルター・ページネーション）
 2. POST /api/customers（新規作成・バリデーション）
 3. GET /api/customers/:id（詳細取得）
@@ -126,24 +130,27 @@ UIは日本の業務システムらしいシンプルで見やすいデザイン
 ---
 
 ## 補足指示
+
 - 各Stepは必ず確認を求めてから次に進むこと
 - テストが通らない状態でStepを終了しないこと
 - エラーが発生した場合は原因を説明してから修正すること
+
 ```
 
 ---
 
 ## 初期ディレクトリ構成案
 ```
+
 mabl-crm-web/
-├── CLAUDE.md                          # Claude Code向け開発ガイド
-├── PROMPT.md                          # Claude Code向け開発プロンプト
-├── README.md                          # プロジェクト概要
-├── Dockerfile                         # マルチステージビルド
+├── CLAUDE.md # Claude Code向け開発ガイド
+├── PROMPT.md # Claude Code向け開発プロンプト
+├── README.md # プロジェクト概要
+├── Dockerfile # マルチステージビルド
 ├── .dockerignore
-├── cloudbuild.yaml                    # Cloud Build設定
-├── .env                               # ローカル開発用（gitignore）
-├── .env.example                       # 環境変数サンプル
+├── cloudbuild.yaml # Cloud Build設定
+├── .env # ローカル開発用（gitignore）
+├── .env.example # 環境変数サンプル
 ├── .gitignore
 ├── next.config.ts
 ├── tsconfig.json
@@ -152,58 +159,58 @@ mabl-crm-web/
 ├── package.json
 │
 ├── prisma/
-│   ├── schema.prisma                  # データモデル定義
-│   ├── migrations/                    # マイグレーションファイル
-│   └── seed.ts                        # シードデータ（日本語20件+）
+│ ├── schema.prisma # データモデル定義
+│ ├── migrations/ # マイグレーションファイル
+│ └── seed.ts # シードデータ（日本語20件+）
 │
 └── src/
-    ├── app/                           # Next.js App Router
-    │   ├── layout.tsx
-    │   ├── page.tsx                   # ダッシュボード (/)
-    │   ├── login/
-    │   │   └── page.tsx              # ログイン画面
-    │   ├── customers/
-    │   │   ├── page.tsx              # 顧客一覧
-    │   │   ├── new/
-    │   │   │   └── page.tsx          # 新規顧客登録
-    │   │   └── [id]/
-    │   │       └── page.tsx          # 顧客詳細・編集
-    │   └── api/
-    │       ├── auth/
-    │       │   ├── login/
-    │       │   │   ├── route.ts
-    │       │   │   └── route.test.ts  # ← テストを実装と同階層に
-    │       │   ├── logout/
-    │       │   │   ├── route.ts
-    │       │   │   └── route.test.ts
-    │       │   └── me/
-    │       │       ├── route.ts
-    │       │       └── route.test.ts
-    │       ├── dashboard/
-    │       │   ├── route.ts
-    │       │   └── route.test.ts
-    │       └── customers/
-    │           ├── route.ts           # GET(一覧), POST(作成)
-    │           ├── route.test.ts
-    │           └── [id]/
-    │               ├── route.ts       # GET, PUT, DELETE
-    │               └── route.test.ts
-    │
-    ├── lib/
-    │   ├── prisma.ts                  # Prismaクライアントシングルトン
-    │   ├── auth.ts                    # JWT生成・検証ユーティリティ
-    │   └── api-response.ts            # APIレスポンス統一ヘルパー
-    │
-    ├── types/
-    │   └── index.ts                   # 共通型定義（モバイルとも共有想定）
-    │
-    └── components/
-        ├── ui/                        # 汎用UIコンポーネント
-        │   ├── Button.tsx
-        │   ├── Input.tsx
-        │   ├── Card.tsx
-        │   └── Table.tsx
-        └── layout/
-            ├── Header.tsx
-            ├── Sidebar.tsx
-            └── PageLayout.tsx
+├── app/ # Next.js App Router
+│ ├── layout.tsx
+│ ├── page.tsx # ダッシュボード (/)
+│ ├── login/
+│ │ └── page.tsx # ログイン画面
+│ ├── customers/
+│ │ ├── page.tsx # 顧客一覧
+│ │ ├── new/
+│ │ │ └── page.tsx # 新規顧客登録
+│ │ └── [id]/
+│ │ └── page.tsx # 顧客詳細・編集
+│ └── api/
+│ ├── auth/
+│ │ ├── login/
+│ │ │ ├── route.ts
+│ │ │ └── route.test.ts # ← テストを実装と同階層に
+│ │ ├── logout/
+│ │ │ ├── route.ts
+│ │ │ └── route.test.ts
+│ │ └── me/
+│ │ ├── route.ts
+│ │ └── route.test.ts
+│ ├── dashboard/
+│ │ ├── route.ts
+│ │ └── route.test.ts
+│ └── customers/
+│ ├── route.ts # GET(一覧), POST(作成)
+│ ├── route.test.ts
+│ └── [id]/
+│ ├── route.ts # GET, PUT, DELETE
+│ └── route.test.ts
+│
+├── lib/
+│ ├── prisma.ts # Prismaクライアントシングルトン
+│ ├── auth.ts # JWT生成・検証ユーティリティ
+│ └── api-response.ts # APIレスポンス統一ヘルパー
+│
+├── types/
+│ └── index.ts # 共通型定義（モバイルとも共有想定）
+│
+└── components/
+├── ui/ # 汎用UIコンポーネント
+│ ├── Button.tsx
+│ ├── Input.tsx
+│ ├── Card.tsx
+│ └── Table.tsx
+└── layout/
+├── Header.tsx
+├── Sidebar.tsx
+└── PageLayout.tsx

@@ -7,7 +7,12 @@ const VALID_STATUSES = ['ACTIVE', 'INACTIVE', 'PROSPECT'] as const
 
 const createCustomerSchema = z.object({
   name: z.string().min(1, '顧客名を入力してください'),
-  email: z.string().email('有効なメールアドレスを入力してください').optional().or(z.literal('')).transform(v => v === '' ? undefined : v),
+  email: z
+    .string()
+    .email('有効なメールアドレスを入力してください')
+    .optional()
+    .or(z.literal(''))
+    .transform((v) => (v === '' ? undefined : v)),
   phone: z.string().optional(),
   company: z.string().optional(),
   status: z.enum(VALID_STATUSES).optional().default('PROSPECT'),
@@ -25,12 +30,19 @@ export async function GET(request: Request): Promise<NextResponse> {
     const search = searchParams.get('search') ?? ''
     const statusParam = searchParams.get('status') ?? ''
     const page = Math.max(1, parseInt(searchParams.get('page') ?? '1'))
-    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') ?? '20')))
+    const limit = Math.min(
+      100,
+      Math.max(1, parseInt(searchParams.get('limit') ?? '20'))
+    )
     const skip = (page - 1) * limit
 
     type WhereClause = {
       status?: string
-      OR?: { name?: { contains: string }; company?: { contains: string }; email?: { contains: string } }[]
+      OR?: {
+        name?: { contains: string }
+        company?: { contains: string }
+        email?: { contains: string }
+      }[]
     }
 
     const where: WhereClause = {}
@@ -43,7 +55,10 @@ export async function GET(request: Request): Promise<NextResponse> {
       ]
     }
 
-    if (statusParam && (VALID_STATUSES as readonly string[]).includes(statusParam)) {
+    if (
+      statusParam &&
+      (VALID_STATUSES as readonly string[]).includes(statusParam)
+    ) {
       where.status = statusParam
     }
 
@@ -65,7 +80,10 @@ export async function GET(request: Request): Promise<NextResponse> {
       totalPages: Math.ceil(total / limit),
     })
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }
 
@@ -95,6 +113,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     return NextResponse.json({ customer }, { status: 201 })
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }

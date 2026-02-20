@@ -45,11 +45,15 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-blue-700">CRM システム</h1>
-          <p className="mt-1 text-sm text-gray-500">顧客管理システムへログイン</p>
+          <p className="mt-1 text-sm text-gray-500">
+            顧客管理システムへログイン
+          </p>
         </div>
 
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
-          <h2 className="text-base font-semibold text-gray-800 mb-6">ログイン</h2>
+          <h2 className="text-base font-semibold text-gray-800 mb-6">
+            ログイン
+          </h2>
 
           {error && (
             <div

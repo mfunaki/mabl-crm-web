@@ -29,9 +29,9 @@ interface FormValues {
 }
 
 const STATUS_OPTIONS = [
-  { value: 'ACTIVE',   label: '取引中' },
+  { value: 'ACTIVE', label: '取引中' },
   { value: 'PROSPECT', label: '見込み' },
-  { value: 'INACTIVE', label: '休眠'   },
+  { value: 'INACTIVE', label: '休眠' },
 ]
 
 export default function CustomerDetailPage() {
@@ -44,7 +44,12 @@ export default function CustomerDetailPage() {
   const [editing, setEditing] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState<FormValues>({
-    name: '', email: '', phone: '', company: '', status: 'PROSPECT', notes: '',
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    status: 'PROSPECT',
+    notes: '',
   })
 
   useEffect(() => {
@@ -56,12 +61,12 @@ export default function CustomerDetailPage() {
         } else if (d.customer) {
           setCustomer(d.customer)
           setForm({
-            name:    d.customer.name    ?? '',
-            email:   d.customer.email   ?? '',
-            phone:   d.customer.phone   ?? '',
+            name: d.customer.name ?? '',
+            email: d.customer.email ?? '',
+            phone: d.customer.phone ?? '',
             company: d.customer.company ?? '',
-            status:  d.customer.status  ?? 'PROSPECT',
-            notes:   d.customer.notes   ?? '',
+            status: d.customer.status ?? 'PROSPECT',
+            notes: d.customer.notes ?? '',
           })
         }
       })
@@ -95,12 +100,12 @@ export default function CustomerDetailPage() {
   const handleCancel = () => {
     if (customer) {
       setForm({
-        name:    customer.name    ?? '',
-        email:   customer.email   ?? '',
-        phone:   customer.phone   ?? '',
+        name: customer.name ?? '',
+        email: customer.email ?? '',
+        phone: customer.phone ?? '',
         company: customer.company ?? '',
-        status:  customer.status  ?? 'PROSPECT',
-        notes:   customer.notes   ?? '',
+        status: customer.status ?? 'PROSPECT',
+        notes: customer.notes ?? '',
       })
     }
     setError('')
@@ -204,7 +209,9 @@ export default function CustomerDetailPage() {
                 data-testid="status-select"
               >
                 {STATUS_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
                 ))}
               </select>
             </div>

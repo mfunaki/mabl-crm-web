@@ -7,43 +7,56 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run --coverage",
+    "test:cov": "vitest run --coverage",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "docker:build": "docker build -t mabl-crm-web .",
-    "docker:run": "docker run -p 3000:3000 -e DATABASE_URL=file:/app/prisma/prod.db -e JWT_SECRET=dev-secret-change-in-production mabl-crm-web"
+    "docker:run": "docker run -p 3000:3000 -e DATABASE_URL=file:/app/prisma/prod.db -e JWT_SECRET=dev-secret-change-in-production mabl-crm-web",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.9.6",
     "next": "14.2.29",
     "react": "^18",
     "react-dom": "^18",
-    "@prisma/client": "^5.22.0",
-    "jose": "^5.9.6",
-    "bcryptjs": "^2.4.3",
     "zod": "^3.23.8"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/bcryptjs": "^2.4.6",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^1.6.1",
     "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.29",
-    "prisma": "^5.22.0",
-    "vitest": "^1.6.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@testing-library/react": "^16.0.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/user-event": "^14.5.2",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
     "jsdom": "^25.0.1",
+    "lint-staged": "^16.2.7",
+    "postcss": "^8",
+    "prettier": "^3.8.1",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5",
     "vite": "^5.4.11",
-    "ts-node": "^10.9.2"
+    "vitest": "^1.6.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": "prettier --write",
+    "*.{ts,tsx}": "next lint --fix --file"
   }
 }

@@ -3,9 +3,12 @@
 import { ButtonHTMLAttributes } from 'react'
 
 const variantClasses = {
-  primary: 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500 border-transparent',
-  secondary: 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-gray-400',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 border-transparent',
+  primary:
+    'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500 border-transparent',
+  secondary:
+    'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-gray-400',
+  danger:
+    'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 border-transparent',
 }
 
 const sizeClasses = {

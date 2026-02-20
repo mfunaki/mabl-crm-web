@@ -25,7 +25,9 @@ function KpiCard({ label, value, color, testId }: KpiCardProps) {
       data-testid={testId}
       className={`bg-white rounded-lg border border-gray-200 shadow-sm p-5 border-l-4 ${color}`}
     >
-      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{label}</p>
+      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+        {label}
+      </p>
       <p className="mt-2 text-3xl font-bold text-gray-800">{value}</p>
     </div>
   )

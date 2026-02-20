@@ -20,16 +20,16 @@ mabl を使ったテスト自動化のデモ・学習用途として設計され
 
 ## 技術スタック
 
-| カテゴリ | 技術 |
-|---|---|
-| フレームワーク | Next.js 14（App Router） |
-| 言語 | TypeScript（strict モード） |
-| DB / ORM | SQLite + Prisma |
-| 認証 | JWT（jose）、bcryptjs |
-| スタイリング | Tailwind CSS |
-| テスト | Vitest、Testing Library |
-| コンテナ | Docker（マルチステージビルド） |
-| CI/CD | GitHub Actions + Google Cloud Run |
+| カテゴリ       | 技術                              |
+| -------------- | --------------------------------- |
+| フレームワーク | Next.js 14（App Router）          |
+| 言語           | TypeScript（strict モード）       |
+| DB / ORM       | SQLite + Prisma                   |
+| 認証           | JWT（jose）、bcryptjs             |
+| スタイリング   | Tailwind CSS                      |
+| テスト         | Vitest、Testing Library           |
+| コンテナ       | Docker（マルチステージビルド）    |
+| CI/CD          | GitHub Actions + Google Cloud Run |
 
 ---
 
@@ -62,10 +62,10 @@ npm run dev
 
 ### 初期アカウント
 
-| ロール | メールアドレス | パスワード |
-|---|---|---|
-| 管理者 | admin@demo.com | Mabl@Admin#2024 |
-| 一般ユーザー | user@demo.com | Mabl@User#2024 |
+| ロール       | メールアドレス | パスワード      |
+| ------------ | -------------- | --------------- |
+| 管理者       | admin@demo.com | Mabl@Admin#2024 |
+| 一般ユーザー | user@demo.com  | Mabl@User#2024  |
 
 ---
 
@@ -125,16 +125,16 @@ https://mabl-crm-web-ixi7x7b23a-an.a.run.app
 
 ### テストシナリオ一覧
 
-| # | テストラベル | 概要 |
-|---|---|---|
-| 1 | ログイン - 正常系 | 正しい認証情報でログインしダッシュボードへ遷移 |
-| 2 | ログイン - 異常系 | 誤ったパスワードでエラーメッセージを確認 |
-| 3 | ダッシュボード - 統計表示 | 各統計カードの表示確認 |
-| 4 | 顧客一覧 - 検索・フィルター | キーワード検索とステータスフィルターの動作確認 |
-| 5 | 顧客 - 新規登録 | フォーム入力から一覧への反映確認 |
-| 6 | 顧客 - 情報編集 | ステータスとメモの編集・保存確認 |
-| 7 | 顧客 - 削除 | 確認モーダル経由での削除と一覧からの消去確認 |
-| 8 | ログアウト - 認証保護 | ログアウト後の認証保護リダイレクト確認 |
+| #   | テストラベル                | 概要                                           |
+| --- | --------------------------- | ---------------------------------------------- |
+| 1   | ログイン - 正常系           | 正しい認証情報でログインしダッシュボードへ遷移 |
+| 2   | ログイン - 異常系           | 誤ったパスワードでエラーメッセージを確認       |
+| 3   | ダッシュボード - 統計表示   | 各統計カードの表示確認                         |
+| 4   | 顧客一覧 - 検索・フィルター | キーワード検索とステータスフィルターの動作確認 |
+| 5   | 顧客 - 新規登録             | フォーム入力から一覧への反映確認               |
+| 6   | 顧客 - 情報編集             | ステータスとメモの編集・保存確認               |
+| 7   | 顧客 - 削除                 | 確認モーダル経由での削除と一覧からの消去確認   |
+| 8   | ログアウト - 認証保護       | ログアウト後の認証保護リダイレクト確認         |
 
 ### 本番スモークテスト
 
@@ -144,9 +144,9 @@ mabl プラン「mabl-crm-web 本番スモークテスト」として上記 8 �
 
 ## ドキュメント
 
-| ファイル | 内容 |
-|---|---|
-| [docs/deploy.md](docs/deploy.md) | GitHub Actions + Cloud Run デプロイ手順 |
-| [docs/mabl-tests.md](docs/mabl-tests.md) | mabl テスト仕様（シナリオ・data-testid 一覧） |
+| ファイル                                                           | 内容                                           |
+| ------------------------------------------------------------------ | ---------------------------------------------- |
+| [docs/deploy.md](docs/deploy.md)                                   | GitHub Actions + Cloud Run デプロイ手順        |
+| [docs/mabl-tests.md](docs/mabl-tests.md)                           | mabl テスト仕様（シナリオ・data-testid 一覧）  |
 | [docs/mabl-agent-prompt-guide.md](docs/mabl-agent-prompt-guide.md) | Test Creation Agent プロンプト作成ガイドライン |
-| [docs/prompts/](docs/prompts/) | Test Creation Agent 向けサンプルプロンプト |
+| [docs/prompts/](docs/prompts/)                                     | Test Creation Agent 向けサンプルプロンプト     |

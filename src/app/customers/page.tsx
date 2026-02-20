@@ -26,9 +26,9 @@ interface ApiResponse {
 }
 
 const STATUS_LABELS: Record<string, { label: string; className: string }> = {
-  ACTIVE:   { label: '取引中',  className: 'bg-green-100 text-green-800' },
-  INACTIVE: { label: '休眠',    className: 'bg-gray-100  text-gray-600'  },
-  PROSPECT: { label: '見込み',  className: 'bg-blue-100  text-blue-800'  },
+  ACTIVE: { label: '取引中', className: 'bg-green-100 text-green-800' },
+  INACTIVE: { label: '休眠', className: 'bg-gray-100  text-gray-600' },
+  PROSPECT: { label: '見込み', className: 'bg-blue-100  text-blue-800' },
 }
 
 export default function CustomersPage() {
@@ -41,28 +41,34 @@ export default function CustomersPage() {
   const [statusFilter, setStatusFilter] = useState('')
   const [loading, setLoading] = useState(true)
   const [deletingId, setDeletingId] = useState<string | null>(null)
-  const [confirmTarget, setConfirmTarget] = useState<{ id: string; name: string } | null>(null)
+  const [confirmTarget, setConfirmTarget] = useState<{
+    id: string
+    name: string
+  } | null>(null)
 
-  const fetchCustomers = useCallback(async (p: number, q: string, s: string) => {
-    setLoading(true)
-    const params = new URLSearchParams({ page: String(p), limit: '20' })
-    if (q) params.set('search', q)
-    if (s) params.set('status', s)
-    try {
-      const res = await fetch(`/api/customers?${params}`)
-      const data: ApiResponse = await res.json()
-      setCustomers(data.customers ?? [])
-      setTotal(data.total ?? 0)
-      setTotalPages(data.totalPages ?? 1)
-      setPage(data.page ?? 1)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+  const fetchCustomers = useCallback(
+    async (p: number, q: string, s: string) => {
+      setLoading(true)
+      const params = new URLSearchParams({ page: String(p), limit: '20' })
+      if (q) params.set('search', q)
+      if (s) params.set('status', s)
+      try {
+        const res = await fetch(`/api/customers?${params}`)
+        const data: ApiResponse = await res.json()
+        setCustomers(data.customers ?? [])
+        setTotal(data.total ?? 0)
+        setTotalPages(data.totalPages ?? 1)
+        setPage(data.page ?? 1)
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
 
   useEffect(() => {
     fetchCustomers(1, search, statusFilter)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSearch = () => {
@@ -148,24 +154,42 @@ export default function CustomersPage() {
             >
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">顧客名</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">会社名</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">メール</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">電話番号</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ステータス</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">操作</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    顧客名
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    会社名
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    メール
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    電話番号
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    ステータス
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    操作
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
                 {!loading && customers.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
+                    <td
+                      colSpan={6}
+                      className="px-4 py-8 text-center text-gray-400"
+                    >
                       顧客データがありません
                     </td>
                   </tr>
                 )}
                 {customers.map((c) => {
-                  const status = STATUS_LABELS[c.status] ?? { label: c.status, className: 'bg-gray-100 text-gray-600' }
+                  const status = STATUS_LABELS[c.status] ?? {
+                    label: c.status,
+                    className: 'bg-gray-100 text-gray-600',
+                  }
                   return (
                     <tr
                       key={c.id}
@@ -181,11 +205,19 @@ export default function CustomersPage() {
                           {c.name}
                         </Link>
                       </td>
-                      <td className="px-4 py-3 text-gray-600">{c.company ?? '—'}</td>
-                      <td className="px-4 py-3 text-gray-600">{c.email ?? '—'}</td>
-                      <td className="px-4 py-3 text-gray-600">{c.phone ?? '—'}</td>
+                      <td className="px-4 py-3 text-gray-600">
+                        {c.company ?? '—'}
+                      </td>
+                      <td className="px-4 py-3 text-gray-600">
+                        {c.email ?? '—'}
+                      </td>
+                      <td className="px-4 py-3 text-gray-600">
+                        {c.phone ?? '—'}
+                      </td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${status.className}`}>
+                        <span
+                          className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${status.className}`}
+                        >
                           {status.label}
                         </span>
                       </td>
@@ -254,7 +286,10 @@ export default function CustomersPage() {
           data-testid="delete-confirm-dialog"
         >
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm mx-4">
-            <p className="text-gray-800 mb-6" data-testid="delete-confirm-message">
+            <p
+              className="text-gray-800 mb-6"
+              data-testid="delete-confirm-message"
+            >
               「{confirmTarget.name}」を削除してもよいですか？
             </p>
             <div className="flex justify-end gap-3">

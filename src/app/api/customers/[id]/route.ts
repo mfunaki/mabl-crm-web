@@ -7,7 +7,12 @@ const VALID_STATUSES = ['ACTIVE', 'INACTIVE', 'PROSPECT'] as const
 
 const updateCustomerSchema = z.object({
   name: z.string().min(1, '顧客名を入力してください').optional(),
-  email: z.string().email('有効なメールアドレスを入力してください').optional().or(z.literal('')).transform(v => v === '' ? undefined : v),
+  email: z
+    .string()
+    .email('有効なメールアドレスを入力してください')
+    .optional()
+    .or(z.literal(''))
+    .transform((v) => (v === '' ? undefined : v)),
   phone: z.string().optional(),
   company: z.string().optional(),
   status: z.enum(VALID_STATUSES).optional(),
@@ -31,12 +36,18 @@ export async function GET(
     })
 
     if (!customer) {
-      return NextResponse.json({ error: '顧客が見つかりません' }, { status: 404 })
+      return NextResponse.json(
+        { error: '顧客が見つかりません' },
+        { status: 404 }
+      )
     }
 
     return NextResponse.json({ customer })
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }
 
@@ -55,7 +66,10 @@ export async function PUT(
     })
 
     if (!existing) {
-      return NextResponse.json({ error: '顧客が見つかりません' }, { status: 404 })
+      return NextResponse.json(
+        { error: '顧客が見つかりません' },
+        { status: 404 }
+      )
     }
 
     const body = await request.json()
@@ -75,7 +89,10 @@ export async function PUT(
 
     return NextResponse.json({ customer })
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }
 
@@ -94,13 +111,19 @@ export async function DELETE(
     })
 
     if (!existing) {
-      return NextResponse.json({ error: '顧客が見つかりません' }, { status: 404 })
+      return NextResponse.json(
+        { error: '顧客が見つかりません' },
+        { status: 404 }
+      )
     }
 
     await prisma.customer.delete({ where: { id: params.id } })
 
     return NextResponse.json({ success: true })
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }

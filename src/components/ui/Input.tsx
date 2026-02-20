@@ -7,11 +7,20 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string
 }
 
-export default function Input({ label, error, className = '', id, ...props }: InputProps) {
+export default function Input({
+  label,
+  error,
+  className = '',
+  id,
+  ...props
+}: InputProps) {
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor={id}
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           {label}
         </label>
       )}

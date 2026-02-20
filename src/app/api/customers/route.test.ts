@@ -72,10 +72,9 @@ describe('GET /api/customers', () => {
     vi.mocked(prisma.customer.findMany).mockResolvedValue([mockCustomer])
     vi.mocked(prisma.customer.count).mockResolvedValue(1)
 
-    const request = new Request(
-      'http://localhost/api/customers?search=田中',
-      { headers: { cookie: 'auth-token=valid-token' } }
-    )
+    const request = new Request('http://localhost/api/customers?search=田中', {
+      headers: { cookie: 'auth-token=valid-token' },
+    })
 
     await GET(request)
 

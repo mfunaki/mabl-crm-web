@@ -35,8 +35,8 @@ describe('GET /api/dashboard', () => {
     vi.mocked(prisma.customer.count)
       .mockResolvedValueOnce(25) // totalCustomers
       .mockResolvedValueOnce(13) // activeCustomers
-      .mockResolvedValueOnce(7)  // prospects
-      .mockResolvedValueOnce(3)  // newThisMonth
+      .mockResolvedValueOnce(7) // prospects
+      .mockResolvedValueOnce(3) // newThisMonth
 
     const request = new Request('http://localhost/api/dashboard', {
       headers: { cookie: 'auth-token=valid-token' },

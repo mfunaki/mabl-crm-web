@@ -55,7 +55,10 @@ describe('POST /api/auth/login', () => {
     const request = new Request('http://localhost/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'admin@demo.com', password: 'password123' }),
+      body: JSON.stringify({
+        email: 'admin@demo.com',
+        password: 'password123',
+      }),
     })
 
     const response = await POST(request)

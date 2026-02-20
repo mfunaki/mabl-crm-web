@@ -7,10 +7,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     const authUser = await getAuthUserFromRequest(request)
 
     if (!authUser) {
-      return NextResponse.json(
-        { error: '認証が必要です' },
-        { status: 401 }
-      )
+      return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
@@ -33,6 +30,9 @@ export async function GET(request: Request): Promise<NextResponse> {
       },
     })
   } catch {
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'サーバーエラーが発生しました' },
+      { status: 500 }
+    )
   }
 }
